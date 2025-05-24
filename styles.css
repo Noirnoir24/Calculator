@@ -1,0 +1,66 @@
+body{
+    display: flex;
+    justify-content: center;     
+    align-items: center;  
+    min-height: 100vh; 
+    
+}
+
+#calculatorBox {
+ display: flex;
+ flex-direction: column;
+border: solid 1px;
+background-color: #586BA4;
+}
+
+#header {
+    display: flex;
+    padding: 3px;
+}
+
+.row {
+    padding: 3px;
+}
+
+#calcDisplay {
+    flex-grow: 1;
+    border: solid black 1px ;
+    margin-right: 4px;
+    padding-left: 10px;
+    display: flex;              
+    justify-content: left;    
+    align-items: center;        
+    text-align: center;   
+    font-size: 30px;   
+    color:white  
+}
+
+#clear{
+    flex-shrink: 1;
+    min-height: 70px;
+    min-width: 70px;
+    font-size: 30px;
+    background-color: #F68E5F;
+    color: white
+}
+
+.Button{
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    background-color: #324376;
+    color: white;
+
+}
+
+#calculateButton{
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    background-color: #F76C5E;
+    color: white
+}
+
+.operator.Button{
+    background-color: #F76C5E;
+}
