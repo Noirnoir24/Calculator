@@ -17,10 +17,6 @@ function divide(firstDigit, secondDigit) {
     return firstDigit/secondDigit
 }
 
-let operator
-let firstOperand
-let secondOperand
-
 function operate(operatorSign,operandOne,operandTwo) {
 switch(operatorSign){
     case "+":
@@ -35,3 +31,45 @@ switch(operatorSign){
     return "Invalid Operator";
 }
 }
+
+let firstOperand= ""
+let operatorSymbol= ""
+let secondOperand= ""
+let isFirstOperandComplete= false
+
+const padButtons = document.querySelectorAll(".pad.Button");
+const displayNumber= document.querySelector("#calcDisplay");
+const operatorButtons = document.querySelectorAll(".operator.Button");
+
+padButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        if(!isFirstOperandComplete) {
+            firstOperand+= button.textContent
+            if(firstOperand=== ".") {
+                firstOperand= "0."
+            }
+            displayNumber.textContent= firstOperand
+        }
+        else {
+            secondOperand+= button.textContent
+                        if(secondOperand=== ".") {
+                secondOperand= "0."
+            }
+            displayNumber.textContent= secondOperand
+        }
+    });
+});
+
+operatorButtons.forEach(button=> {
+    button.addEventListener("click", ()=> {
+        if(!isFirstOperandComplete) {
+            operatorSymbol= button.textContent
+            isFirstOperandComplete= true
+        }       
+    })
+})
+
+
+
+
+

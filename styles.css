@@ -24,7 +24,7 @@ background-color: #586BA4;
 
 #calcDisplay {
     flex-grow: 1;
-    border: solid black 1px ;
+    border: solid black 2px ;
     margin-right: 4px;
     padding-left: 10px;
     display: flex;              
@@ -50,7 +50,6 @@ background-color: #586BA4;
     font-size: 30px;
     background-color: #324376;
     color: white;
-
 }
 
 #calculateButton{
