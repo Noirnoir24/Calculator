@@ -21,8 +21,10 @@ function clear() {
 firstOperand= ""
 operatorSymbol= ""
 secondOperand= ""
-displayNumber.textContent= "0"
 isFirstOperandComplete= false
+result= null
+hasCalculated= false
+displayNumber.textContent="0"
 }
 
 function operate(operatorSign,operandOne,operandTwo) {
@@ -51,6 +53,11 @@ const operatorButtons = document.querySelectorAll(".operator.Button");
 
 padButtons.forEach(button => {
     button.addEventListener("click", () => {
+        if(shouldItReset) {
+            clear()
+            displayNumber.textContent=button.textContent
+            shouldItReset=false
+        }
 
         if (hasCalculated && !isFirstOperandComplete) {
             firstOperand = "";
@@ -80,6 +87,7 @@ padButtons.forEach(button => {
 
 let result= null
 let hasCalculated= false
+let shouldItReset= false
 
 
 operatorButtons.forEach(button=> {
@@ -93,6 +101,7 @@ operatorButtons.forEach(button=> {
         operatorSymbol = button.textContent;
         isFirstOperandComplete = true;
         hasCalculated = false;
+        shouldItReset= false //this is here so chaining wont fail once this flag has been set to true when pressing operate
     
     })
 })
@@ -105,6 +114,7 @@ operateButton.addEventListener("click", ()=> {
     firstOperand = result;
     secondOperand = "";
     hasCalculated = true;
+    shouldItReset= true
 })
 
 
