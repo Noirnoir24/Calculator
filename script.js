@@ -17,6 +17,14 @@ function divide(firstDigit, secondDigit) {
     return firstDigit/secondDigit
 }
 
+function clear() {
+firstOperand= ""
+operatorSymbol= ""
+secondOperand= ""
+displayNumber.textContent= "0"
+isFirstOperandComplete= false
+}
+
 function operate(operatorSign,operandOne,operandTwo) {
 switch(operatorSign){
     case "+":
@@ -28,7 +36,7 @@ switch(operatorSign){
     case "/": 
     return divide(operandOne,operandTwo);
     default: 
-    return "Invalid Operator";
+    return "0";
 }
 }
 
@@ -43,6 +51,15 @@ const operatorButtons = document.querySelectorAll(".operator.Button");
 
 padButtons.forEach(button => {
     button.addEventListener("click", () => {
+
+        if (hasCalculated && !isFirstOperandComplete) {
+            firstOperand = "";
+            hasCalculated = false;
+        } else if (hasCalculated && isFirstOperandComplete) {
+            secondOperand = "";
+            hasCalculated = false;
+        }
+
         if(!isFirstOperandComplete) {
             firstOperand+= button.textContent
             if(firstOperand=== ".") {
@@ -50,6 +67,7 @@ padButtons.forEach(button => {
             }
             displayNumber.textContent= firstOperand
         }
+
         else {
             secondOperand+= button.textContent
                         if(secondOperand=== ".") {
@@ -60,16 +78,34 @@ padButtons.forEach(button => {
     });
 });
 
+let result= null
+let hasCalculated= false
+
+
 operatorButtons.forEach(button=> {
     button.addEventListener("click", ()=> {
-        if(!isFirstOperandComplete) {
-            operatorSymbol= button.textContent
-            isFirstOperandComplete= true
-        }       
+       if (isFirstOperandComplete && secondOperand !== "") {
+            result = operate(operatorSymbol, +firstOperand, +secondOperand);
+            displayNumber.textContent = result;
+            firstOperand = result;
+            secondOperand = "";
+        }
+        operatorSymbol = button.textContent;
+        isFirstOperandComplete = true;
+        hasCalculated = false;
+    
     })
 })
 
+const operateButton= document.querySelector("#calculateButton") 
 
+operateButton.addEventListener("click", ()=> {
+    result = operate(operatorSymbol, +firstOperand, +secondOperand);
+    displayNumber.textContent = result;
+    firstOperand = result;
+    secondOperand = "";
+    hasCalculated = true;
+})
 
 
 
