@@ -42,6 +42,29 @@ switch(operatorSign){
 }
 }
 
+function formatDisplayNumber(num) {
+    const str = num.toString();
+
+    if (Number.isInteger(num)) {
+        return str.length <= 12 ? str : num.toExponential(5); 
+    } else {
+        
+        let formatted = num.toString();
+
+        
+        if (formatted.length > 12) {
+            formatted = num.toFixed(11).replace(/\.?0+$/, ''); 
+        }
+
+       
+        if (formatted.length > 12) {
+            formatted = num.toExponential(5);
+        }
+
+        return formatted;
+    }
+}
+
 
 let firstOperand= ""
 let operatorSymbol= ""
@@ -73,7 +96,7 @@ padButtons.forEach(button => {
                 firstOperand += input;
             }
 
-            displayNumber.textContent = firstOperand;
+            displayNumber.textContent = firstOperand
 
         } 
         
@@ -87,7 +110,7 @@ padButtons.forEach(button => {
                 secondOperand += input;
             }
 
-            displayNumber.textContent = secondOperand;
+            displayNumber.textContent = secondOperand
         }
     });
 });
@@ -117,7 +140,7 @@ const operateButton= document.querySelector("#calculateButton")
 
 operateButton.addEventListener("click", ()=> {
     result = operate(operatorSymbol, +firstOperand, +secondOperand);
-    displayNumber.textContent = result
+    displayNumber.textContent = formatDisplayNumber(result)
     firstOperand = result;
     secondOperand = "";
     hasCalculated = true;
