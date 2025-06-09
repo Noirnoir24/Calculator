@@ -12,7 +12,7 @@ function multiply(firstDigit, secondDigit) {
 
 function divide(firstDigit, secondDigit) {
     if (secondDigit === 0) {
-        return "Cannot divide by zero dummy";
+        return "😡😡😡😡😡";
     }
     return firstDigit/secondDigit
 }
@@ -25,6 +25,7 @@ isFirstOperandComplete= false
 result= null
 hasCalculated= false
 displayNumber.textContent="0"
+shouldItReset= false
 }
 
 function operate(operatorSign,operandOne,operandTwo) {
@@ -51,6 +52,9 @@ function formatDisplayNumber(num) {
         
         let formatted = num.toString();
 
+        if(formatted=== "😡😡😡😡😡") { //This one accounts for the case when the user tries to divide by zero 
+            return "😡😡😡😡😡"             // 😡 cursive angry
+        }
         
         if (formatted.length > 12) {
             formatted = num.toFixed(11).replace(/\.?0+$/, ''); 
@@ -74,19 +78,24 @@ let isFirstOperandComplete= false
 const padButtons = document.querySelectorAll(".pad.Button");
 const displayNumber= document.querySelector("#calcDisplay");
 const operatorButtons = document.querySelectorAll(".operator.Button");
+const clearButton= document.querySelector("#clear")
+
+clearButton.addEventListener("click", clear)
 
 padButtons.forEach(button => {
     button.addEventListener("click", () => {
 
  const input = button.textContent;
+ let maxDisplayLength= 12
 
         if (shouldItReset) {
             clear();
             displayNumber.textContent = input;
-            shouldItReset = false;
         }
 
         if (!isFirstOperandComplete) {
+
+            if (firstOperand.length >= maxDisplayLength) return;
 
             if (input === "." && firstOperand.includes(".")) return;
 
@@ -101,6 +110,8 @@ padButtons.forEach(button => {
         } 
         
         else {
+
+            if (secondOperand.length >= maxDisplayLength) return;
 
             if (input === "." && secondOperand.includes(".")) return;
 
