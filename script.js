@@ -12,7 +12,8 @@ function multiply(firstDigit, secondDigit) {
 
 function divide(firstDigit, secondDigit) {
     if (secondDigit === 0) {
-        return "😡😡😡😡😡";
+                alert("😡 Cannot divide by zero!");
+        return null;
     }
     return firstDigit/secondDigit
 }
@@ -51,10 +52,6 @@ function formatDisplayNumber(num) {
     } else {
         
         let formatted = num.toString();
-
-        if(formatted=== "😡😡😡😡😡") { //This one accounts for the case when the user tries to divide by zero 
-            return "😡😡😡😡😡"             // 😡 cursive angry
-        }
         
         if (formatted.length > 12) {
             formatted = num.toFixed(11).replace(/\.?0+$/, ''); 
@@ -135,7 +132,17 @@ operatorButtons.forEach(button=> {
     button.addEventListener("click", ()=> {
        if (isFirstOperandComplete && secondOperand !== "") {
             result = operate(operatorSymbol, +firstOperand, +secondOperand);
-            displayNumber.textContent = result;
+
+            if (result === null) {
+                firstOperand = "";
+                secondOperand = "";
+                isFirstOperandComplete = false;
+                hasCalculated = false;
+                shouldItReset = false;
+                return;
+            }
+
+            displayNumber.textContent = formatDisplayNumber(result);
             firstOperand = result;
             secondOperand = "";
         }
@@ -150,7 +157,22 @@ operatorButtons.forEach(button=> {
 const operateButton= document.querySelector("#calculateButton") 
 
 operateButton.addEventListener("click", ()=> {
+
+  if (secondOperand === "") return;
+
     result = operate(operatorSymbol, +firstOperand, +secondOperand);
+
+    if (result === null) {
+       
+        firstOperand = "";
+        secondOperand = "";
+        isFirstOperandComplete = false;
+        hasCalculated = false;
+        shouldItReset = false;
+        return;
+    }
+    
+
     displayNumber.textContent = formatDisplayNumber(result)
     firstOperand = result;
     secondOperand = "";
