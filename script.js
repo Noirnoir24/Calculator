@@ -92,17 +92,22 @@ padButtons.forEach(button => {
 
         if (!isFirstOperandComplete) {
 
-            if (firstOperand.length >= maxDisplayLength) return;
+            if (firstOperand.length >= maxDisplayLength) return; // avoid display overflow
 
-            if (input === "." && firstOperand.includes(".")) return;
+            if (input === "." && firstOperand.includes(".")) return; //Ignores further presses of dot to avoid multiple decimals
 
             if (input === "." && firstOperand === "") {
                 firstOperand = "0.";
+            
+            } 
+            else if (firstOperand === "0" && input !== ".") {
+                 firstOperand = input; // Replace leading 0
+
             } else {
-                firstOperand += input;
+            firstOperand += input;
             }
 
-            displayNumber.textContent = firstOperand
+                displayNumber.textContent = firstOperand;
 
         } 
         
@@ -114,11 +119,16 @@ padButtons.forEach(button => {
 
             if (input === "." && secondOperand === "") {
                 secondOperand = "0.";
+            } 
+
+            else if (secondOperand=== "0" && input !== ".") {
+                 secondOperand = input;
+
             } else {
-                secondOperand += input;
+            secondOperand += input;
             }
 
-            displayNumber.textContent = secondOperand
+                displayNumber.textContent = secondOperand;
         }
     });
 });
@@ -142,7 +152,7 @@ operatorButtons.forEach(button=> {
                 return;
             }
 
-            displayNumber.textContent = formatDisplayNumber(result);
+            displayNumber.textContent = formatDisplayNumber(result); 
             firstOperand = result;
             secondOperand = "";
         }
